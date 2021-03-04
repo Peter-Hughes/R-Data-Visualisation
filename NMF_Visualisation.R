@@ -2,8 +2,7 @@ library(NMF)
 library(FactoMineR)
 library(factoextra)
 
-setwd("C:/Users/Peter/Downloads/Data-Analysis-and-Visualisation-master/Data-Analysis-and-Visualisation-master")
-filename <- "Complete_Dataset_220_17_CSC3062_RR_2019.csv"
+filename <- "Complete_Dataset.csv"
 
 
 complete_dataset_220 <- read.csv(filename, row.names = 1)
