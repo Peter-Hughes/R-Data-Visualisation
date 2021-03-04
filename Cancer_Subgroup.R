@@ -3,16 +3,12 @@ library(factoextra)
 library(pca3d)
 library(cluster)  # daisy() for Dissimilarity Matrix Calculation
 
-setwd("C:/Users/Peter/OneDrive/Documents/Year3/Data/Assignment2/")   
-
-file_name <- "Complete_Dataset_220_17_CSC3062_RR_2019.csv"
+file_name <- "Complete_Dataset.csv"
 # Read an input csv file from the working directory
 Complete_dataaset_220 <- as.data.frame(read.csv(file_name, row.names = 1))
 
 
-#----------------------------------------------------------------------------------------------------
-# 2) Run k-means clustering algorithm on this dataset and identify the cluster labels (single run)
-#----------------------------------------------------------------------------------------------------
+# Run k-means clustering algorithm on this dataset and identify the cluster labels (single run)
 K_means_Model <- kmeans(t(Complete_dataaset_220),
                         centers = 4, 
                         iter.max = 50,
@@ -29,10 +25,7 @@ fviz_cluster(K_means_Model,
              ellipse.type = "norm")
 
 
-#----------------------------------------------------------------------------------------------------
-# 3) Try to use k-means clustering in multiple runs with different initialisation settings
-#----------------------------------------------------------------------------------------------------
-
+# Using k-means clustering in multiple runs with different initialisation settings
 set.seed(20)
 Number_of_runs <- 4
 Matrix_labels_different_runs <- matrix(nrow = ncol(Complete_dataaset_220), ncol = Number_of_runs,0)
@@ -71,12 +64,6 @@ dE2   <- Dissimilarity_Matrix^2
 Silhouette_kmeans   <- silhouette(K_means_Model$cluster, dE2)
 
 plot(Silhouette_kmeans)
-
-#----------------------------------------------------------------------------------------------------
-# 5) Visualise the outcome of the clustering results (from single run or aggregated) 
-#    using PCA when samples are coloured based on your clustering labels. Use the following colours 
-#    in link with a sample subgroup. 1: blue; 2: red; 3: yellow; 4:green
-#----------------------------------------------------------------------------------------------------
 
 pca3d(Complete_dataaset_220, 
       col = c("blue", "red", "yellow", "green"),
