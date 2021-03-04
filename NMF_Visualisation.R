@@ -5,22 +5,8 @@ library(factoextra)
 setwd("C:/Users/Peter/Downloads/Data-Analysis-and-Visualisation-master/Data-Analysis-and-Visualisation-master")
 filename <- "Complete_Dataset_220_17_CSC3062_RR_2019.csv"
 
-########################################################################
-# Question 1
-########################################################################
-# Read an input CSV file including 220 samples and 17 features from 
-# input.
-########################################################################
 
 complete_dataset_220 <- read.csv(filename, row.names = 1)
-
-
-########################################################################
-# Question 2
-########################################################################
-# Run NMF algorithm on this dataset and identify the best rank according 
-# to the quality criteria that we have learned from the lectures
-########################################################################
 
 # Initialise the parameters used for the nmf
 seq1 <- 2
@@ -36,15 +22,6 @@ Res_MultiRank <- nmf(complete_dataset_220, seq(seq1, seq2),
 
 # Plot the multi rank 
 plot(Res_MultiRank)
-
-# Based on the visual inspection of the plot, I will be using 4 as the rank
-
-
-########################################################################
-# Question 3
-########################################################################
-# Obtain the W (basis) and H (Coef) matrices
-########################################################################
 
 # Find the max cophen rank 
 cophen_max <- max(Res_MultiRank$measures$cophenetic)
@@ -63,29 +40,12 @@ h_matrix <- NMFfitClass@fit@H
 # Take the W value of the max fit
 w_matrix <- NMFfitClass@fit@W
 
-
-########################################################################
-# Question 4
-########################################################################
-# Run PCA algorithm on the factorisation results (i.e., H matrix) 
-# obtained from the NMF analysis
-########################################################################
-
 # Get the PCA of the H matrix 
 PCA_Model_prcomp <- prcomp(t(h_matrix), center = T, scale=F)
 # Show the values of the PCA 
 PCA_Model_prcomp$x 
 # Show the summary of the PCA
 summary(PCA_Model_prcomp)
-
-
-########################################################################
-# Question 5
-########################################################################
-# Visualise the three main principal component analysis of the H matrix 
-# while using colour information in link with the sample subgroup 
-# (each sample name includes a subgroup label).
-########################################################################
 
 # Visualise why we should only use 3 dimensions
 fviz_eig(PCA_Model_prcomp, addlabels = T, ylim=c(0, 60))
